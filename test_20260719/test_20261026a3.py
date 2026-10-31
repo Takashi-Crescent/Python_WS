@@ -28,7 +28,7 @@ conn.close()
 def login():
     connect = pyodbc.connect(
         "DRIVER={SQL Server};"
-        "SERVER=192.168.1.102;"
+        "SERVER=192.168.1.101;"
         "DATABASE=IMFS;"
         "PORT=1433;"
         "UID=takashi;"
@@ -49,11 +49,11 @@ cursor = conn.cursor()
 #cursor.close()
 #conn.close()
 
-query = "SELECT * FROM [IMFS].[dbo].[T0101_0017_売上明細_TEST] where [日付・時刻] >= '2018-03-01 00:00:00' and [日付・時刻] < '2018-03-02 00:00:00'"
+query = "SELECT TOP (100) * FROM [IMFS].[dbo].[T0101_0017_売上明細_TEST] where [日付・時刻] >= '2018-03-01 00:00:00' and [日付・時刻] < '2018-03-02 00:00:00'"
 df = pd.read_sql(query, conn)
 print(df)
 print("CSVファイルに出力します。")
-df.to_csv('test_20260719/output.csv', index=False, encoding='utf-8-sig')  # CSVファイルに出力
+df.to_csv('./output.csv', index=False, encoding='utf-8-sig')  # CSVファイルに出力
 
 cursor.close()
 conn.close()
